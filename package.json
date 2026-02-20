@@ -1,0 +1,14 @@
+{
+  "name": "rbcci-loan-application",
+  "version": "1.0.0",
+  "description": "RBCCI Loan Inquiry & Application Platform",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
