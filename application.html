@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RBCCI — Loan Application Form</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-darkest: #0d2818;
+    --green-dark: #1a4d2e;
+    --green-mid: #2d6a4f;
+    --green-leaf: #40916c;
+    --green-pale: #74c69d;
+    --green-wash: #b7e4c7;
+    --green-faint: #d8f3dc;
+    --gold: #c9a227;
+    --red: #c0392b;
+    --text-dark: #1b1b1b;
+    --text-mid: #3a3a3a;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Sans 3', 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, var(--green-darkest) 0%, var(--green-dark) 50%, var(--green-mid) 100%);
+    color: var(--text-dark);
+    min-height: 100vh;
+  }
+
+  .page-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 3rem;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    text-align: center;
+    padding: 2.5rem 2rem 2rem;
+    background: linear-gradient(180deg, #ffffff 0%, #d8f3dc 100%);
+    border-radius: 20px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+    margin-bottom: 2rem;
+    border: 1px solid rgba(82,183,136,0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--green-leaf), var(--gold), var(--green-leaf));
+  }
+  .logo-img {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    border: 3px solid var(--green-leaf);
+    object-fit: cover;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 16px rgba(45,106,79,0.4);
+  }
+  .bank-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.65rem; font-weight: 800;
+    color: var(--green-dark);
+  }
+  .bank-address {
+    font-size: 0.85rem; color: var(--text-mid);
+    margin-top: 0.4rem; line-height: 1.7;
+  }
+  .doc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 700;
+    color: var(--green-mid);
+    margin-top: 1.2rem; padding-top: 1rem;
+    border-top: 2px solid var(--green-wash);
+    letter-spacing: 1.5px; text-transform: uppercase;
+  }
+  .ref-row {
+    display: flex; justify-content: center;
+    flex-wrap: wrap; gap: 0.6rem 1rem;
+    margin-top: 0.8rem;
+  }
+  .ref-row input[type="text"],
+  .ref-row input[type="date"] {
+    background: var(--green-faint);
+    border: 1px solid var(--green-wash);
+    border-radius: 20px;
+    padding: 0.3rem 0.9rem;
+    font-size: 0.82rem;
+    color: var(--text-dark);
+    font-family: inherit;
+    outline: none;
+    text-align: center;
+    width: 180px;
+  }
+  .ref-row input:focus {
+    border-color: var(--green-leaf);
+    box-shadow: 0 0 0 2px rgba(64,145,108,0.2);
+  }
+  .ref-label {
+    font-size: 0.82rem; color: var(--text-mid);
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    background: rgba(255,255,255,0.97);
+    border-radius: 16px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+    border: 1px solid rgba(82,183,136,0.2);
+    overflow: hidden;
+  }
+  .section-header {
+    background: linear-gradient(135deg, var(--green-mid) 0%, var(--green-dark) 100%);
+    color: var(--white);
+    padding: 0.9rem 1.5rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem; font-weight: 700;
+    letter-spacing: 0.8px;
+    display: flex; align-items: center; gap: 0.6rem;
+    cursor: pointer; user-select: none;
+  }
+  .section-header:hover {
+    background: linear-gradient(135deg, var(--green-leaf) 0%, var(--green-mid) 100%);
+  }
+  .section-header .icon {
+    width: 28px; height: 28px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-header .toggle {
+    margin-left: auto; font-size: 0.9rem;
+    opacity: 0.8; transition: transform 0.3s;
+  }
+  .section-header.collapsed .toggle { transform: rotate(-90deg); }
+  .section-body {
+    padding: 1.5rem; overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.3s;
+  }
+  .section-body.hidden {
+    max-height: 0 !important;
+    padding-top: 0; padding-bottom: 0;
+  }
+
+  /* ── SUB-TITLES ── */
+  .sub-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem; font-weight: 700;
+    color: var(--green-dark);
+    margin: 1.2rem 0 0.6rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 2px solid var(--green-wash);
+  }
+  .sub-title:first-child { margin-top: 0; }
+
+  /* ── FIELD GRID ── */
+  .field-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 0.8rem 1.2rem;
+    margin: 0.5rem 0;
+  }
+  .field { display: flex; flex-direction: column; }
+  .field-label {
+    font-size: 0.72rem; font-weight: 600;
+    color: var(--green-mid);
+    text-transform: uppercase; letter-spacing: 0.8px;
+    margin-bottom: 0.3rem;
+  }
+  .field-label .required { color: var(--red); margin-left: 2px; }
+
+  /* ── INPUT STYLES ── */
+  input[type="text"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="date"],
+  input[type="email"],
+  select,
+  textarea {
+    width: 100%;
+    font-size: 0.88rem;
+    font-family: inherit;
+    background: var(--green-faint);
+    padding: 0.5rem 0.7rem;
+    border-radius: 8px;
+    border: 1px solid var(--green-wash);
+    color: var(--text-dark);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--green-leaf);
+    box-shadow: 0 0 0 3px rgba(64,145,108,0.15);
+    background: #fff;
+  }
+  input.invalid, select.invalid, textarea.invalid {
+    border-color: var(--red);
+    box-shadow: 0 0 0 3px rgba(192,57,43,0.12);
+  }
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%232d6a4f' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    padding-right: 2rem;
+    cursor: pointer;
+  }
+  textarea { resize: vertical; min-height: 70px; }
+
+  /* ── DATA TABLE ── */
+  .data-table {
+    width: 100%;
+    border-collapse: separate; border-spacing: 0;
+    margin: 0.6rem 0; font-size: 0.84rem;
+    border-radius: 10px; overflow: hidden;
+    border: 1px solid var(--green-wash);
+  }
+  .data-table thead th {
+    background: linear-gradient(135deg, var(--green-leaf), var(--green-mid));
+    color: white; padding: 0.6rem 0.8rem;
+    text-align: left; font-weight: 600;
+    font-size: 0.75rem; text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .data-table tbody td {
+    padding: 0.3rem 0.4rem;
+    border-bottom: 1px solid var(--green-faint);
+  }
+  .data-table tbody td input {
+    border-radius: 6px; padding: 0.35rem 0.5rem;
+  }
+  .data-table tbody tr:nth-child(even) { background: rgba(183,228,199,0.15); }
+
+  /* ── CASH FLOW TABLE ── */
+  .cf-table {
+    width: 100%;
+    border-collapse: separate; border-spacing: 0;
+    font-size: 0.84rem; border-radius: 10px;
+    overflow: hidden; border: 1px solid var(--green-wash);
+    margin: 0.6rem 0;
+  }
+  .cf-table th {
+    background: linear-gradient(135deg, var(--green-leaf), var(--green-mid));
+    color: white; padding: 0.55rem 0.8rem;
+    text-align: left; font-weight: 600;
+    font-size: 0.75rem; letter-spacing: 0.5px;
+  }
+  .cf-table th.amount { text-align: right; }
+  .cf-table td { padding: 0.3rem 0.5rem; border-bottom: 1px solid rgba(183,228,199,0.3); }
+  .cf-table tr.category-header td {
+    background: var(--green-faint);
+    font-weight: 700; color: var(--green-dark); font-size: 0.82rem;
+    padding: 0.5rem 0.8rem;
+  }
+  .cf-table tr.total-row td {
+    background: rgba(45,106,79,0.08);
+    font-weight: 700; color: var(--green-dark);
+    border-top: 2px solid var(--green-pale);
+    padding: 0.45rem 0.8rem;
+  }
+  .cf-table tr.grand-total td {
+    background: linear-gradient(135deg, var(--green-dark), var(--green-darkest));
+    color: white; font-weight: 700; font-size: 0.9rem;
+    padding: 0.5rem 0.8rem;
+  }
+  .cf-table .indent { padding-left: 2rem !important; }
+  .cf-table .amount-cell { text-align: right; min-width: 130px; }
+  .cf-table .amount-cell input {
+    text-align: right; background: rgba(255,255,255,0.6);
+    border-radius: 6px; padding: 0.3rem 0.5rem;
+  }
+  .cf-table .total-display {
+    text-align: right; font-weight: 700;
+    color: var(--green-dark); padding-right: 0.8rem;
+  }
+  .cf-table tr.grand-total .total-display { color: white; }
+
+  /* ── NOTE BOX ── */
+  .note-box {
+    background: rgba(201,162,39,0.07);
+    border-left: 4px solid var(--gold);
+    padding: 0.7rem 1rem;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.82rem; color: var(--text-mid);
+    margin: 0.8rem 0; line-height: 1.6;
+  }
+  .note-box strong { color: var(--green-dark); }
+
+  /* ── SIGNATURE ── */
+  .signature-area {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2rem; margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--green-wash);
+  }
+  .sig-block { text-align: center; }
+  .sig-line {
+    border-bottom: 2px solid var(--green-dark);
+    margin-bottom: 0.4rem; height: 50px;
+  }
+  .sig-label {
+    font-size: 0.78rem; font-weight: 600;
+    color: var(--green-mid); text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .sig-name-input {
+    margin-top: 0.4rem;
+  }
+
+  /* ── BUTTONS ── */
+  .btn-row {
+    display: flex; gap: 1rem; justify-content: center;
+    flex-wrap: wrap; margin-top: 2rem;
+  }
+  .btn {
+    padding: 0.8rem 2.2rem;
+    border-radius: 50px; border: none;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; font-weight: 700;
+    cursor: pointer; letter-spacing: 0.5px;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+  .btn:active { transform: translateY(0); }
+  .btn-submit {
+    background: linear-gradient(135deg, var(--green-leaf), var(--green-dark));
+    color: white;
+    box-shadow: 0 4px 14px rgba(26,77,46,0.4);
+  }
+  .btn-reset {
+    background: white;
+    color: var(--green-dark);
+    border: 2px solid var(--green-wash);
+  }
+  .btn-print {
+    background: linear-gradient(135deg, var(--gold), #a87d10);
+    color: white;
+    box-shadow: 0 4px 14px rgba(201,162,39,0.35);
+  }
+
+  /* ── STATUS MESSAGE ── */
+  #status-msg {
+    display: none; text-align: center;
+    margin-top: 1rem; padding: 0.8rem 1.5rem;
+    border-radius: 10px; font-weight: 600;
+    font-size: 0.9rem;
+  }
+  #status-msg.success {
+    background: var(--green-faint);
+    color: var(--green-dark);
+    border: 1px solid var(--green-wash);
+  }
+  #status-msg.error {
+    background: #fde8e8;
+    color: var(--red);
+    border: 1px solid #f5c0c0;
+  }
+  #status-msg.loading {
+    background: #fff8e1;
+    color: #7d5a00;
+    border: 1px solid #ffe082;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center; padding: 1.5rem;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.75rem; letter-spacing: 0.5px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .field-grid { grid-template-columns: 1fr; }
+    .signature-area { grid-template-columns: 1fr; gap: 1.5rem; }
+    .ref-row { flex-direction: column; align-items: center; }
+    .bank-name { font-size: 1.3rem; }
+  }
+
+  @media print {
+    body { background: white !important; }
+    .section { box-shadow: none; border: 1px solid #ccc; page-break-inside: avoid; }
+    .btn-row, .footer { display: none; }
+  }
+
+  
+</style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+
+<style>
+  /* ── REF LOOKUP BAR ── */
+  .ref-lookup-bar {
+    background: linear-gradient(135deg, #1a4d2e, #2d6a4f);
+    border-radius: 16px;
+    padding: 20px 28px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .ref-lookup-icon {
+    font-size: 28px; flex-shrink: 0;
+  }
+  .ref-lookup-text { flex: 1; min-width: 200px; }
+  .ref-lookup-text h3 {
+    color: white; font-family: 'Playfair Display', serif;
+    font-size: 1rem; margin-bottom: 4px;
+  }
+  .ref-lookup-text p {
+    color: rgba(255,255,255,0.7); font-size: 0.8rem; line-height: 1.4;
+  }
+  .ref-lookup-input-wrap {
+    display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+  }
+  .ref-lookup-input {
+    background: rgba(255,255,255,0.15) !important;
+    border: 1.5px solid rgba(255,255,255,0.3) !important;
+    border-radius: 10px !important;
+    color: white !important;
+    font-size: 0.9rem !important;
+    padding: 10px 14px !important;
+    width: 200px !important;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  .ref-lookup-input::placeholder { color: rgba(255,255,255,0.5) !important; }
+  .ref-lookup-input:focus {
+    border-color: #c9a227 !important;
+    box-shadow: 0 0 0 3px rgba(201,162,39,0.25) !important;
+    background: rgba(255,255,255,0.2) !important;
+  }
+  .ref-lookup-btn {
+    background: #c9a227; color: white;
+    border: none; border-radius: 10px;
+    padding: 10px 18px; font-size: 0.85rem; font-weight: 700;
+    cursor: pointer; font-family: 'Playfair Display', serif;
+    transition: background 0.2s, transform 0.15s;
+    white-space: nowrap;
+  }
+  .ref-lookup-btn:hover { background: #a87d10; transform: translateY(-1px); }
+  .ref-lookup-status {
+    font-size: 0.8rem; margin-top: 6px; padding: 6px 12px;
+    border-radius: 8px; display: none;
+  }
+  .ref-lookup-status.success {
+    background: rgba(183,228,199,0.2); color: #b7e4c7;
+    border: 1px solid rgba(183,228,199,0.3); display: block;
+  }
+  .ref-lookup-status.error {
+    background: rgba(192,57,43,0.2); color: #ff8a80;
+    border: 1px solid rgba(192,57,43,0.3); display: block;
+  }
+  .ref-lookup-status.loading {
+    background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8);
+    border: 1px solid rgba(255,255,255,0.2); display: block;
+  }
+  .autofilled {
+    background: rgba(183,228,199,0.3) !important;
+    border-color: #74c69d !important;
+    transition: background 0.4s ease;
+  }
+  @media (max-width: 600px) {
+    .ref-lookup-bar { flex-direction: column; align-items: flex-start; }
+    .ref-lookup-input { width: 100% !important; }
+  }
+</style>
+
+<form id="loanForm" novalidate>
+
+  <!-- ══ REFERENCE NUMBER LOOKUP BAR ══ -->
+  <div class="ref-lookup-bar">
+    <div class="ref-lookup-icon">🔍</div>
+    <div class="ref-lookup-text">
+      <h3>Have a Loan Inquiry Reference Number?</h3>
+      <p>Enter your reference number from FILE 1 to auto-fill your information below.</p>
+    </div>
+    <div>
+      <div class="ref-lookup-input-wrap">
+        <input type="text" id="ref-lookup-input" class="ref-lookup-input"
+          placeholder="REF-2026-XXXXX"
+          oninput="this.value = this.value.toUpperCase()"
+          onkeydown="if(event.key==='Enter'){event.preventDefault();lookupReference();}" />
+        <button type="button" class="ref-lookup-btn" onclick="lookupReference()">
+          ⚡ Auto-Fill
+        </button>
+      </div>
+      <div id="ref-lookup-status" class="ref-lookup-status"></div>
+    </div>
+  </div>
+
+  <!-- ══ HEADER ══ -->
+  <header class="header">
+    <img src="data:image/jpeg;base64,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" alt="RBCCI Logo" class="logo-img">
+    <div class="bank-name">Rural Bank of Calbayog City, Inc.</div>
+    <div class="bank-address">
+      82 T. Bugallon St., Brgy. Central, Calbayog City, W. Samar, 6710<br>
+      Tel: (055) 209-1265 / (055) 209-2541 &nbsp;|&nbsp; Since 1959
+    </div>
+    <div class="doc-title">Loan Application Form</div>
+    <div class="ref-row">
+      <label class="ref-label">Date:
+        <input type="date" name="date" id="date">
+      </label>
+      <label class="ref-label">Ref. No.:
+        <input type="text" name="ref_no" id="ref_no" placeholder="e.g. 2025-001">
+      </label>
+      <label class="ref-label">Branch:
+        <input type="text" name="branch" id="branch" placeholder="Branch name">
+      </label>
+    </div>
+  </header>
+
+  <!-- ══ SECTION 1: BORROWER INFORMATION ══ -->
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span class="icon">👤</span>
+      <span>1. Borrower Information</span>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="sub-title">Personal Details</div>
+      <div class="field-grid">
+        <div class="field">
+          <label class="field-label" for="full_name">Full Name <span class="required">*</span></label>
+          <input type="text" id="full_name" name="full_name" placeholder="Last, First Middle" required>
+        </div>
+        <div class="field">
+          <label class="field-label" for="dob">Date of Birth <span class="required">*</span></label>
+          <input type="date" id="dob" name="dob" required>
+        </div>
+        <div class="field">
+          <label class="field-label" for="civil_status">Civil Status <span class="required">*</span></label>
+          <select id="civil_status" name="civil_status" required>
+            <option value="">— Select —</option>
+            <option>Single</option>
+            <option>Married</option>
+            <option>Widowed</option>
+            <option>Separated</option>
+            <option>Annulled</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field-label" for="nationality">Nationality</label>
+          <input type="text" id="nationality" name="nationality" placeholder="e.g. Filipino" value="Filipino">
+        </div>
+        <div class="field">
+          <label class="field-label" for="tin_sss">TIN / SSS No.</label>
+          <input type="text" id="tin_sss" name="tin_sss" placeholder="e.g. 123-456-789">
+        </div>
+        <div class="field">
+          <label class="field-label" for="contact_no">Contact No. <span class="required">*</span></label>
+          <input type="tel" id="contact_no" name="contact_no" placeholder="e.g. 09XXXXXXXXX" required>
+        </div>
+        <div class="field">
+          <label class="field-label" for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="e.g. name@email.com">
+        </div>
+        <div class="field">
+          <label class="field-label" for="gender">Gender</label>
+          <select id="gender" name="gender">
+            <option value="">— Select —</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Prefer not to say</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="sub-title">Address</div>
+      <div class="field-grid">
+        <div class="field">
+          <label class="field-label" for="present_address">Present Address <span class="required">*</span></label>
+          <textarea id="present_address" name="present_address" placeholder="House No., Street, Barangay, City/Municipality, Province" required></textarea>
+        </div>
+        <div class="field">
+          <label class="field-label" for="provincial_address">Provincial Address</label>
+          <textarea id="provincial_address" name="provincial_address" placeholder="If different from present address"></textarea>
+        </div>
+        <div class="field">
+          <label class="field-label" for="years_residency">Years of Residency</label>
+          <input type="number" id="years_residency" name="years_residency" placeholder="e.g. 5" min="0">
+        </div>
+        <div class="field">
+          <label class="field-label" for="home_ownership">Home Ownership</label>
+          <select id="home_ownership" name="home_ownership">
+            <option value="">— Select —</option>
+            <option>Owned</option>
+            <option>Rented</option>
+            <option>Living with Relatives</option>
+            <option>Company-provided</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="sub-title">Spouse / Co-Borrower (if applicable)</div>
+      <div class="field-grid">
+        <div class="field">
+          <label class="field-label" for="spouse_name">Spouse / Co-Borrower Name</label>
+          <input type="text" id="spouse_name" name="spouse_name" placeholder="Last, First Middle">
+        </div>
+        <div class="field">
+          <label class="field-label" for="spouse_dob">Date of Birth</label>
+          <input type="date" id="spouse_dob" name="spouse_dob">
+        </div>
+        <div class="field">
+          <label class="field-label" for="spouse_occupation">Occupation</label>
+          <input type="text" id="spouse_occupation" name="spouse_occupation" placeholder="e.g. Teacher">
+        </div>
+        <div class="field">
+          <label class="field-label" for="spouse_contact">Contact No.</label>
+          <input type="tel" id="spouse_contact" name="spouse_contact" placeholder="e.g. 09XXXXXXXXX">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 2: LOAN DETAILS ══ -->
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span class="icon">💰</span>
+      <span>2. Loan Details</span>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="field-grid">
+        <div class="field">
+          <label class="field-label" for="loan_amount">Loan Amount Requested (₱) <span class="required">*</span></label>
+          <input type="number" id="loan_amount" name="loan_amount" placeholder="e.g. 500000" min="0" required>
+        </div>
+        <div class="field">
+          <label class="field-label" for="loan_purpose">Loan Purpose <span class="required">*</span></label>
+          <select id="loan_purpose" name="loan_purpose" required>
+            <option value="">— Select —</option>
+            <option>Business Capital</option>
+            <option>House Construction / Renovation</option>
+            <option>Land Acquisition</option>
+            <option>Agricultural</option>
+            <option>Education</option>
+            <option>Medical</option>
+            <option>Debt Consolidation</option>
+            <option>Vehicle Purchase</option>
+            <option>Personal Consumption</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field-label" for="loan_type">Type of Loan <span class="required">*</span></label>
+          <select id="loan_type" name="loan_type" required>
+            <option value="">— Select —</option>
+            <option>Salary Loan</option>
+            <option>Business Loan</option>
+            <option>Agricultural Loan</option>
+            <option>Real Estate Loan</option>
+            <option>Personal Loan</option>
+            <option>Microfinance Loan</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field-label" for="loan_term">Loan Term</label>
+          <select id="loan_term" name="loan_term">
+            <option value="">— Select —</option>
+            <option>6 months</option>
+            <option>12 months</option>
+            <option>18 months</option>
+            <option>24 months</option>
+            <option>36 months</option>
+            <option>48 months</option>
+            <option>60 months</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field-label" for="payment_mode">Mode of Payment</label>
+          <select id="payment_mode" name="payment_mode">
+            <option value="">— Select —</option>
+            <option>Monthly</option>
+            <option>Quarterly</option>
+            <option>Semi-Annual</option>
+            <option>Annual</option>
+            <option>Lump Sum</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field-label" for="interest_rate">Interest Rate (%)</label>
+          <input type="number" id="interest_rate" name="interest_rate" placeholder="e.g. 12" min="0" step="0.01">
+        </div>
+      </div>
+      <div class="field" style="margin-top:0.8rem;">
+        <label class="field-label" for="loan_remarks">Additional Remarks / Loan Description</label>
+        <textarea id="loan_remarks" name="loan_remarks" placeholder="Any additional details about the loan purpose..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 3: EMPLOYMENT / BUSINESS INFORMATION ══ -->
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span class="icon">🏢</span>
+      <span>3. Employment / Business Information</span>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="field-grid">
+        <div class="field">
+          <label class="field-label" for="employer_name">Employer / Business Name</label>
+          <input type="text" id="employer_name" name="employer_name" placeholder="Name of employer or business">
+        </div>
+        <div class="field">
+          <label class="field-label" for="nature_business">Nature of Business</label>
+          <select id="nature_business" name="nature_business">
+            <option value="">— Select —</option>
+            <option>Agriculture / Farming</option>
+            <option>Trading / Retail</option>
+            <option>Manufacturing</option>
+            <option>Services</option>
+            <option>Government Employee</option>
+            <option>Private Employee</option>
+            <option>Self-Employed / Freelance</option>
+            <option>OFW / Remittance</option>
+            <option>Fishing</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field-label" for="position">Position / Occupation</label>
+          <input type="text" id="position" name="position" placeholder="e.g. Manager, Farmer, Teacher">
+        </div>
+        <div class="field">
+          <label class="field-label" for="monthly_income">Monthly Gross Income (₱) <span class="required">*</span></label>
+          <input type="number" id="monthly_income" name="monthly_income" placeholder="e.g. 25000" min="0" required oninput="calcCashFlow()">
+        </div>
+        <div class="field">
+          <label class="field-label" for="years_employment">Years in Business / Employment</label>
+          <input type="number" id="years_employment" name="years_employment" placeholder="e.g. 3" min="0">
+        </div>
+        <div class="field">
+          <label class="field-label" for="employment_status">Employment Status</label>
+          <select id="employment_status" name="employment_status">
+            <option value="">— Select —</option>
+            <option>Regular / Permanent</option>
+            <option>Contractual</option>
+            <option>Probationary</option>
+            <option>Self-Employed</option>
+            <option>Retired</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field-label" for="business_address">Business / Employer Address</label>
+          <textarea id="business_address" name="business_address" placeholder="Complete address of workplace or business"></textarea>
+        </div>
+        <div class="field">
+          <label class="field-label" for="employer_contact">Employer / Business Contact No.</label>
+          <input type="tel" id="employer_contact" name="employer_contact" placeholder="e.g. 09XXXXXXXXX">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 4: COLLATERAL INFORMATION ══ -->
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span class="icon">🏠</span>
+      <span>4. Collateral Information</span>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Description / Type</th>
+            <th>Location</th>
+            <th>Title / TCT No.</th>
+            <th>Appraised Value (₱)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align:center;color:var(--green-mid);font-weight:600;">1</td>
+            <td><input type="text" name="col_desc_1" placeholder="e.g. Residential Lot"></td>
+            <td><input type="text" name="col_loc_1" placeholder="Barangay, City"></td>
+            <td><input type="text" name="col_title_1" placeholder="TCT No."></td>
+            <td><input type="number" name="col_value_1" placeholder="0.00" min="0"></td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--green-mid);font-weight:600;">2</td>
+            <td><input type="text" name="col_desc_2" placeholder="e.g. Agricultural Land"></td>
+            <td><input type="text" name="col_loc_2" placeholder="Barangay, City"></td>
+            <td><input type="text" name="col_title_2" placeholder="TCT No."></td>
+            <td><input type="number" name="col_value_2" placeholder="0.00" min="0"></td>
+          </tr>
+          <tr>
+            <td style="text-align:center;color:var(--green-mid);font-weight:600;">3</td>
+            <td><input type="text" name="col_desc_3" placeholder="e.g. Building / House"></td>
+            <td><input type="text" name="col_loc_3" placeholder="Barangay, City"></td>
+            <td><input type="text" name="col_title_3" placeholder="TCT No."></td>
+            <td><input type="number" name="col_value_3" placeholder="0.00" min="0"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 5: CASH FLOW SUMMARY ══ -->
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span class="icon">📊</span>
+      <span>5. Cash Flow Summary</span>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <table class="cf-table">
+        <thead>
+          <tr>
+            <th>Particulars</th>
+            <th class="amount">Monthly (₱)</th>
+            <th class="amount">Annual (₱)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="category-header"><td colspan="3">INCOME</td></tr>
+          <tr>
+            <td class="indent">Salary / Business Income</td>
+            <td class="amount-cell"><input type="number" name="inc_salary_monthly" id="inc_salary" placeholder="0.00" min="0" oninput="calcCashFlow()"></td>
+            <td class="amount-cell"><input type="number" name="inc_salary_annual" id="inc_salary_annual" placeholder="0.00" min="0" readonly style="background:rgba(255,255,255,0.4);cursor:not-allowed;"></td>
+          </tr>
+          <tr>
+            <td class="indent">Other Income</td>
+            <td class="amount-cell"><input type="number" name="inc_other_monthly" id="inc_other" placeholder="0.00" min="0" oninput="calcCashFlow()"></td>
+            <td class="amount-cell"><input type="number" name="inc_other_annual" id="inc_other_annual" placeholder="0.00" min="0" readonly style="background:rgba(255,255,255,0.4);cursor:not-allowed;"></td>
+          </tr>
+          <tr class="total-row">
+            <td>TOTAL INCOME</td>
+            <td class="total-display" id="total_income_monthly">₱ 0.00</td>
+            <td class="total-display" id="total_income_annual">₱ 0.00</td>
+          </tr>
+          <tr class="category-header"><td colspan="3">EXPENSES</td></tr>
+          <tr>
+            <td class="indent">Living Expenses</td>
+            <td class="amount-cell"><input type="number" name="exp_living_monthly" id="exp_living" placeholder="0.00" min="0" oninput="calcCashFlow()"></td>
+            <td class="amount-cell"><input type="number" name="exp_living_annual" id="exp_living_annual" placeholder="0.00" min="0" readonly style="background:rgba(255,255,255,0.4);cursor:not-allowed;"></td>
+          </tr>
+          <tr>
+            <td class="indent">Loan Amortization (existing)</td>
+            <td class="amount-cell"><input type="number" name="exp_amort_monthly" id="exp_amort" placeholder="0.00" min="0" oninput="calcCashFlow()"></td>
+            <td class="amount-cell"><input type="number" name="exp_amort_annual" id="exp_amort_annual" placeholder="0.00" min="0" readonly style="background:rgba(255,255,255,0.4);cursor:not-allowed;"></td>
+          </tr>
+          <tr>
+            <td class="indent">Other Expenses</td>
+            <td class="amount-cell"><input type="number" name="exp_other_monthly" id="exp_other" placeholder="0.00" min="0" oninput="calcCashFlow()"></td>
+            <td class="amount-cell"><input type="number" name="exp_other_annual" id="exp_other_annual" placeholder="0.00" min="0" readonly style="background:rgba(255,255,255,0.4);cursor:not-allowed;"></td>
+          </tr>
+          <tr class="total-row">
+            <td>TOTAL EXPENSES</td>
+            <td class="total-display" id="total_exp_monthly">₱ 0.00</td>
+            <td class="total-display" id="total_exp_annual">₱ 0.00</td>
+          </tr>
+          <tr class="grand-total">
+            <td>NET CASH FLOW</td>
+            <td class="total-display" id="net_monthly">₱ 0.00</td>
+            <td class="total-display" id="net_annual">₱ 0.00</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="note-box">
+        <strong>Note:</strong> Annual amounts are auto-calculated (Monthly × 12). All figures should be supported by payslips, ITR, or financial statements.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 6: CERTIFICATION & SIGNATURES ══ -->
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span class="icon">✍️</span>
+      <span>6. Certification &amp; Signatures</span>
+      <span class="toggle">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="note-box">
+        <strong>Declaration:</strong> I/We hereby certify that all information provided in this application is true and correct to the best of my/our knowledge. I/We authorize the Rural Bank of Calbayog City, Inc. to verify and investigate the information submitted herein and to check my/our credit records with any credit bureau or institution.
+      </div>
+      <div class="signature-area">
+        <div class="sig-block">
+          <div class="sig-line"></div>
+          <div class="sig-label">Borrower's Signature over Printed Name</div>
+          <input type="text" name="borrower_printed_name" class="sig-name-input" placeholder="Print full name">
+        </div>
+        <div class="sig-block">
+          <div class="sig-line"></div>
+          <div class="sig-label">Co-Borrower's Signature over Printed Name</div>
+          <input type="text" name="coborrower_printed_name" class="sig-name-input" placeholder="Print full name">
+        </div>
+        <div class="sig-block">
+          <div class="sig-line"></div>
+          <div class="sig-label">Loan Officer</div>
+          <input type="text" name="loan_officer_name" class="sig-name-input" placeholder="Print full name">
+        </div>
+        <div class="sig-block">
+          <div class="sig-line"></div>
+          <div class="sig-label">Branch Manager / Authorized Signatory</div>
+          <input type="text" name="branch_manager_name" class="sig-name-input" placeholder="Print full name">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ ACTION BUTTONS ══ -->
+  <div class="btn-row">
+    <button type="button" class="btn btn-reset" onclick="resetForm()">🔄 Clear Form</button>
+    <button type="button" class="btn btn-print" onclick="window.print()">🖨️ Print</button>
+    <button type="submit" class="btn btn-submit">📤 Submit to Google Sheets</button>
+  </div>
+  <div id="status-msg"></div>
+
+</form>
+</div>
+
+<footer class="footer">
+  Rural Bank of Calbayog City, Inc. &mdash; Loan Application Form &mdash; Established 1959
+</footer>
+
+<script>
+  // ── SECTION TOGGLE ──
+  function toggleSection(header) {
+    const body = header.nextElementSibling;
+    header.classList.toggle('collapsed');
+    if (body.classList.contains('hidden')) {
+      body.classList.remove('hidden');
+      body.style.maxHeight = body.scrollHeight + 'px';
+    } else {
+      body.style.maxHeight = body.scrollHeight + 'px';
+      requestAnimationFrame(() => { body.classList.add('hidden'); });
+    }
+  }
+  document.querySelectorAll('.section-body').forEach(b => {
+    b.style.maxHeight = b.scrollHeight + 'px';
+  });
+
+  // ── CASH FLOW AUTO-CALCULATOR ──
+  function val(id) {
+    return parseFloat(document.getElementById(id)?.value) || 0;
+  }
+  function fmt(n) {
+    return '₱ ' + n.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  function setReadonly(id, v) {
+    const el = document.getElementById(id);
+    if (el) el.value = v.toFixed(2);
+  }
+
+  function calcCashFlow() {
+    const salary  = val('inc_salary');
+    const other   = val('inc_other');
+    const living  = val('exp_living');
+    const amort   = val('exp_amort');
+    const expOth  = val('exp_other');
+
+    const totalIncome  = salary + other;
+    const totalExpense = living + amort + expOth;
+    const net          = totalIncome - totalExpense;
+
+    // Set annual read-only fields
+    setReadonly('inc_salary_annual', salary * 12);
+    setReadonly('inc_other_annual',  other  * 12);
+    setReadonly('exp_living_annual', living * 12);
+    setReadonly('exp_amort_annual',  amort  * 12);
+    setReadonly('exp_other_annual',  expOth * 12);
+
+    // Display totals
+    document.getElementById('total_income_monthly').textContent = fmt(totalIncome);
+    document.getElementById('total_income_annual').textContent  = fmt(totalIncome * 12);
+    document.getElementById('total_exp_monthly').textContent    = fmt(totalExpense);
+    document.getElementById('total_exp_annual').textContent     = fmt(totalExpense * 12);
+
+    const netEl = document.getElementById('net_monthly');
+    const netAEl = document.getElementById('net_annual');
+    netEl.textContent  = fmt(net);
+    netAEl.textContent = fmt(net * 12);
+
+    // Color net cash flow
+    const grandRow = document.querySelector('.cf-table tr.grand-total');
+    if (net < 0) {
+      netEl.style.color = '#ff8a80';
+      netAEl.style.color = '#ff8a80';
+    } else {
+      netEl.style.color = '';
+      netAEl.style.color = '';
+    }
+  }
+
+  // ── FORM RESET ──
+  function resetForm() {
+    if (!confirm('Are you sure you want to clear all fields?')) return;
+    document.getElementById('loanForm').reset();
+    calcCashFlow();
+    showStatus('', '');
+  }
+
+  // ── STATUS MESSAGE ──
+  function showStatus(type, msg) {
+    const el = document.getElementById('status-msg');
+    el.className = type;
+    el.textContent = msg;
+    el.style.display = msg ? 'block' : 'none';
+  }
+
+  // ── FORM VALIDATION ──
+  function validateForm() {
+    let valid = true;
+    document.querySelectorAll('[required]').forEach(el => {
+      el.classList.remove('invalid');
+      if (!el.value.trim()) {
+        el.classList.add('invalid');
+        valid = false;
+      }
+    });
+    return valid;
+  }
+
+  // URL is saved by the user via the Settings panel in the browser
+  // No need to edit this file — just paste your URL in the ⚙️ Settings button
+  const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbytmvWVXT4gMx_qUYJSsndZ8c_ru8wh6nXwlO7hzrgOiBTLwM14qcpXmzg7aiVf6Cfh0Q/exec';
+
+  // ──────────────────────────────────────
+  //  FILE 1 → FILE 2 LOOKUP
+  //  Replace with your FILE 1 Google Apps Script URL
+  //  This must be the SAME Apps Script URL used in FILE 1
+  //  but with ?action=lookup&ref=REF-2026-XXXXX support added
+  // ──────────────────────────────────────
+  const LOOKUP_URL = 'https://script.google.com/macros/s/AKfycbytmvWVXT4gMx_qUYJSsndZ8c_ru8wh6nXwlO7hzrgOiBTLwM14qcpXmzg7aiVf6Cfh0Q/exec';
+
+  // ── AUTO-FILL FROM URL PARAMETER ON PAGE LOAD ──
+  window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const refFromUrl = params.get('ref');
+    if (refFromUrl) {
+      document.getElementById('ref-lookup-input').value = refFromUrl.toUpperCase();
+      document.getElementById('ref_no').value = refFromUrl.toUpperCase();
+      // Auto-trigger lookup after short delay
+      setTimeout(() => lookupReference(), 600);
+    }
+    // Set today's date
+    const today = new Date().toISOString().split('T')[0];
+    if (document.getElementById('date')) {
+      document.getElementById('date').value = today;
+    }
+  });
+
+  // ── REFERENCE NUMBER LOOKUP ──
+  async function lookupReference() {
+    const ref = document.getElementById('ref-lookup-input').value.trim().toUpperCase();
+    const statusEl = document.getElementById('ref-lookup-status');
+
+    if (!ref) {
+      showLookupStatus('error', '⚠️ Please enter a reference number.');
+      return;
+    }
+    if (!ref.startsWith('REF-2026-')) {
+      showLookupStatus('error', '⚠️ Invalid format. Reference number should start with REF-2026-');
+      return;
+    }
+
+    showLookupStatus('loading', '⏳ Looking up your inquiry data...');
+
+    try {
+      const url = `${LOOKUP_URL}?action=lookup&ref=${encodeURIComponent(ref)}`;
+      const res = await fetch(url);
+      const data = await res.json();
+
+      if (data.status === 'found' && data.record) {
+        autoFillForm(data.record, ref);
+        showLookupStatus('success', `✅ Data found! Your information has been auto-filled from Ref. No. ${ref}`);
+      } else if (data.status === 'not_found') {
+        showLookupStatus('error', `❌ Reference number "${ref}" not found. Please check and try again.`);
+      } else {
+        showLookupStatus('error', '❌ Lookup failed. Please fill in the form manually or contact the bank.');
+      }
+    } catch (err) {
+      showLookupStatus('error', '❌ Could not connect to the server. Please fill in the form manually.');
+      console.error('Lookup error:', err);
+    }
+  }
+
+  function showLookupStatus(type, msg) {
+    const el = document.getElementById('ref-lookup-status');
+    el.className = 'ref-lookup-status ' + type;
+    el.textContent = msg;
+  }
+
+  // ── MAP FILE 1 DATA → FILE 2 FIELDS ──
+  function autoFillForm(record, ref) {
+    const fill = (id, value) => {
+      const el = document.getElementById(id);
+      if (el && value) {
+        el.value = value;
+        el.classList.add('autofilled');
+        setTimeout(() => el.classList.remove('autofilled'), 3000);
+      }
+    };
+    const fillSelect = (id, value) => {
+      const el = document.getElementById(id);
+      if (!el || !value) return;
+      // Try to match option text
+      for (let opt of el.options) {
+        if (opt.text.toLowerCase().includes(value.toLowerCase()) ||
+            value.toLowerCase().includes(opt.text.toLowerCase())) {
+          el.value = opt.value;
+          el.classList.add('autofilled');
+          setTimeout(() => el.classList.remove('autofilled'), 3000);
+          break;
+        }
+      }
+    };
+
+    // Set reference number in header
+    fill('ref_no', ref);
+
+    // Section 1: Borrower Information
+    fill('full_name',        record.full_name);
+    fill('contact_no',       record.mobile);
+    fill('email',            record.email);
+    fill('present_address',  record.address);
+
+    // Section 2: Loan Details
+    // Strip commas from loan amount for number input
+    const loanAmt = record.loan_amount ? record.loan_amount.replace(/,/g,'') : '';
+    fill('loan_amount',  loanAmt);
+    fillSelect('loan_purpose', record.loan_purpose);
+    fillSelect('loan_term',    record.loan_term);
+
+    // Section 3: Employment
+    fill('employer_name',  record.employer_business || record.employer);
+
+    // Section 5: Cash Flow — pre-fill monthly income
+    const income = record.monthly_income ? record.monthly_income.replace(/,/g,'') : '';
+    fill('monthly_income', income);
+    fill('inc_salary',     income);
+    if (income) { setTimeout(() => calcCashFlow(), 100); }
+
+    // Expand all sections so user can review
+    document.querySelectorAll('.section-body.hidden').forEach(b => {
+      b.classList.remove('hidden');
+      b.style.maxHeight = b.scrollHeight + 'px';
+      const hdr = b.previousElementSibling;
+      if (hdr) hdr.classList.remove('collapsed');
+    });
+
+    // Scroll to form
+    document.querySelector('.section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // Collect all form field values into a plain object
+  function collectFormData() {
+    const data = {};
+    new FormData(document.getElementById('loanForm')).forEach((v, k) => { data[k] = v; });
+    // Add computed totals from display cells
+    data['total_income_monthly']  = document.getElementById('total_income_monthly').textContent.replace(/[₱,\s]/g,'');
+    data['total_income_annual']   = document.getElementById('total_income_annual').textContent.replace(/[₱,\s]/g,'');
+    data['total_expense_monthly'] = document.getElementById('total_exp_monthly').textContent.replace(/[₱,\s]/g,'');
+    data['total_expense_annual']  = document.getElementById('total_exp_annual').textContent.replace(/[₱,\s]/g,'');
+    data['net_cashflow_monthly']  = document.getElementById('net_monthly').textContent.replace(/[₱,\s]/g,'');
+    data['net_cashflow_annual']   = document.getElementById('net_annual').textContent.replace(/[₱,\s]/g,'');
+    data['submitted_at']          = new Date().toLocaleString('en-PH');
+    return data;
+  }
+
+  // Submit using a hidden FORM element — bypasses all CORS/fetch issues
+  // Works 100% from local HTML files to Google Apps Script
+  function submitViaForm(data) {
+    // Remove any old hidden form
+    const old = document.getElementById('hidden-submit-form');
+    if (old) old.remove();
+
+    // Build a hidden <form> that targets a hidden <iframe>
+    const iframe = document.createElement('iframe');
+    iframe.name  = 'hidden-iframe';
+    iframe.id    = 'hidden-iframe';
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+
+    const form   = document.createElement('form');
+    form.id      = 'hidden-submit-form';
+    form.method  = 'GET';
+    form.action  = GOOGLE_SHEET_URL;
+    form.target  = 'hidden-iframe';
+    form.style.display = 'none';
+
+    // Add each field as a hidden input
+    Object.entries(data).forEach(([key, val]) => {
+      const input = document.createElement('input');
+      input.type  = 'hidden';
+      input.name  = key;
+      input.value = val || '';
+      form.appendChild(input);
+    });
+
+    document.body.appendChild(form);
+
+    // When iframe loads, it means Google Script responded
+    iframe.onload = function() {
+      showStatus('success', '✅ Application submitted successfully! Data has been saved to Google Sheets.');
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      // Cleanup
+      setTimeout(() => {
+        form.remove();
+        iframe.remove();
+      }, 3000);
+    };
+
+    // Expose callback so the iframe response can trigger it
+    window.submissionSuccess = function() {
+      showStatus('success', '✅ Application submitted successfully! Data has been saved to Google Sheets.');
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      setTimeout(() => {
+        const f = document.getElementById('hidden-submit-form');
+        const i = document.getElementById('hidden-iframe');
+        if (f) f.remove();
+        if (i) i.remove();
+        delete window.submissionSuccess;
+      }, 3000);
+    };
+
+    // Submit the hidden form
+    form.submit();
+
+    // Fallback timeout in case onload doesn't fire
+    setTimeout(() => {
+      if (document.getElementById('status-msg').className === 'loading') {
+        showStatus('success', '✅ Submitted! Please check your Google Sheet to confirm data was saved.');
+      }
+    }, 5000);
+  }
+
+  document.getElementById('loanForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      showStatus('error', '⚠️ Please fill in all required fields before submitting.');
+      document.querySelector('.invalid')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL.trim() === '') {
+      showStatus('error', '⚠️ Connection error. Please contact the bank administrator.');
+      return;
+    }
+
+    showStatus('loading', '⏳ Submitting your application, please wait...');
+
+    const data = collectFormData();
+    submitViaForm(data);
+  });
+</script>
+</body>
+</html>
