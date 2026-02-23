@@ -1058,39 +1058,56 @@
   });
 
   // ── REFERENCE NUMBER LOOKUP ──
-  async function lookupReference() {
-    const ref = document.getElementById('ref-lookup-input').value.trim().toUpperCase();
-    const statusEl = document.getElementById('ref-lookup-status');
+async function lookupReference() {
+  const ref = document.getElementById('ref-lookup-input').value.trim().toUpperCase();
 
-    if (!ref) {
-      showLookupStatus('error', '⚠️ Please enter a reference number.');
-      return;
-    }
-    if (!ref.startsWith('REF-2026-')) {
-      showLookupStatus('error', '⚠️ Invalid format. Reference number should start with REF-2026-');
-      return;
-    }
-
-    showLookupStatus('loading', '⏳ Looking up your inquiry data...');
-
-    try {
-      const url = `${LOOKUP_URL}?action=lookup&ref=${encodeURIComponent(ref)}`;
-      const res = await fetch(url);
-      const data = await res.json();
-
-      if (data.status === 'found' && data.record) {
-        autoFillForm(data.record, ref);
-        showLookupStatus('success', `✅ Data found! Your information has been auto-filled from Ref. No. ${ref}`);
-      } else if (data.status === 'not_found') {
-        showLookupStatus('error', `❌ Reference number "${ref}" not found. Please check and try again.`);
-      } else {
-        showLookupStatus('error', '❌ Lookup failed. Please fill in the form manually or contact the bank.');
-      }
-    } catch (err) {
-      showLookupStatus('error', '❌ Could not connect to the server. Please fill in the form manually.');
-      console.error('Lookup error:', err);
-    }
+  if (!ref) {
+    showLookupStatus('error', '⚠️ Please enter a reference number.');
+    return;
   }
+  if (!ref.startsWith('REF-2026-')) {
+    showLookupStatus('error', '⚠️ Invalid format. Should start with REF-2026-');
+    return;
+  }
+
+  showLookupStatus('loading', '⏳ Looking up your inquiry data...');
+
+  try {
+    const data = await new Promise((resolve, reject) => {
+      const callbackName = 'rbcci_cb_' + Date.now();
+      const script = document.createElement('script');
+
+      window[callbackName] = function(result) {
+        resolve(result);
+        document.body.removeChild(script);
+        delete window[callbackName];
+      };
+
+      script.onerror = () => {
+        reject(new Error('Script load failed'));
+        document.body.removeChild(script);
+        delete window[callbackName];
+      };
+
+      script.src = `${LOOKUP_URL}?action=lookup&ref=${encodeURIComponent(ref)}&callback=${callbackName}`;
+      document.body.appendChild(script);
+
+      setTimeout(() => reject(new Error('Timeout')), 10000);
+    });
+
+    if (data.status === 'found' && data.record) {
+      autoFillForm(data.record, ref);
+      showLookupStatus('success', `✅ Data found! Your information has been auto-filled from Ref. No. ${ref}`);
+    } else if (data.status === 'not_found') {
+      showLookupStatus('error', `❌ Reference number "${ref}" not found. Please check and try again.`);
+    } else {
+      showLookupStatus('error', '❌ Lookup failed. Please fill in the form manually.');
+    }
+  } catch (err) {
+    showLookupStatus('error', '❌ Could not connect. Please fill in the form manually.');
+    console.error('Lookup error:', err);
+  }
+}
 
   function showLookupStatus(type, msg) {
     const el = document.getElementById('ref-lookup-status');
